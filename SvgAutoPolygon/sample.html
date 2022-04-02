@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sample</title>
+    <script src="./Script/SvgModule.js"></script>
+</head>
+
+<body>
+    <div id="pageContent"></div>
+
+    <script>
+
+        //polygon's points.
+        let polyPoint = [
+            { y: 25.774, x: 80.19 },
+            { y: 18.466, x: 66.118 },
+            { y: 40.321, x: 50.757 },
+        ];
+
+        //create polygon by using default style option.
+        var polygon1 = new svgModule('pageContent', null, 300, 250)
+            .addPolygon({
+                id: 'polygon1',
+                points: polyPoint,
+                zoom: 10,
+                fill: 'aqua',
+                stroke: 'red',
+                strokeWidth: 3,
+            })
+            .init();
+
+        //create polygon by using style value.
+        var polygon2 = new svgModule('pageContent', null, 300, 250)
+            .addPolygon({
+                id: 'polygon2',
+                points: polyPoint,
+                zoom: 10,
+                style: "fill: red; stroke: blue; stroke-width: 3;"
+            })
+            .init();
+    </script>
+</body>
+
+</html>
