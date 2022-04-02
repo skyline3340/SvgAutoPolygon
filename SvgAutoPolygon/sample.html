@@ -7,6 +7,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Sample</title>
     <script src="./Script/SvgModule.js"></script>
+    <style>
+        #pageContent {
+            display: flex;
+            flex-direction: column;
+        }
+    </style>
 </head>
 
 <body>
@@ -15,17 +21,23 @@
     <script>
 
         //polygon's points.
-        let polyPoint = [
-            { y: 25.774, x: 80.19 },
+        let polyPoint1 = [
+            { y: -25.774, x: 80.19 },
+            { y: -18.466, x: 66.118 },
+            { y: -40.321, x: 50.757 },
+        ];
+
+        let polyPoint2 = [
+            { y: -25.774, x: 80.19 },
             { y: 18.466, x: 66.118 },
-            { y: 40.321, x: 50.757 },
+            { y: -40.321, x: 50.757 },
         ];
 
         //create polygon by using default style option.
         var polygon1 = new svgModule('pageContent', null, 300, 250)
             .addPolygon({
                 id: 'polygon1',
-                points: polyPoint,
+                points: polyPoint1,
                 zoom: 10,
                 fill: 'aqua',
                 stroke: 'red',
@@ -34,12 +46,13 @@
             .init();
 
         //create polygon by using style value.
-        var polygon2 = new svgModule('pageContent', null, 300, 250)
+        var polygon2 = new svgModule('pageContent', null, 300, 350)
             .addPolygon({
                 id: 'polygon2',
-                points: polyPoint,
-                zoom: 10,
-                style: "fill: red; stroke: blue; stroke-width: 3;"
+                points: polyPoint2,
+                zoom: 5,
+                shift: 15,
+                style: "fill: red; stroke: blue; stroke-width: 5;"
             })
             .init();
     </script>
