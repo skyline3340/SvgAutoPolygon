@@ -9,6 +9,7 @@ class svgModule {
         (svgId != null) ? this.svgObj.setAttribute('id', svgId) : null;
         (width != null) ? this.svgObj.setAttribute('width', `${width}`) : null;
         (height != null) ? this.svgObj.setAttribute('height', `${height}`) : null;
+        this.obj = [];
     }
 
     //opt{id?, points, zoom?, fill?, stroke?, strokeWidth?, style?, top?, left?}
@@ -27,17 +28,18 @@ class svgModule {
         opt.stroke = opt.stroke ?? 'black';
         opt.fill = opt.fill ?? 'white';
         opt.zoom = opt.zoom ?? 1;
-        
-        this.obj = document.createElementNS("http://www.w3.org/2000/svg", 'polygon');
-        (opt.id != null) ? this.obj.setAttribute('id', opt.id) : null;
-        this.obj.style['stroke-width'] = `${opt.strokeWidth}`;
-        this.obj.style['stroke'] = opt.stroke;
-        this.obj.style['fill'] = opt.fill;
-        (opt.style != null) ? this.obj.style = opt.style : null;
 
-        opt.top = opt.top ?? parseInt(this.obj.style['stroke-width']);
-        opt.left = opt.left ?? parseInt(this.obj.style['stroke-width']);
-    
+        this.obj.push(document.createElementNS("http://www.w3.org/2000/svg", 'polygon'));
+        var len = this.obj.length - 1;
+        (opt.id != null) ? this.obj[len].setAttribute('id', opt.id) : null;
+        this.obj[len].style['stroke-width'] = `${opt.strokeWidth}`;
+        this.obj[len].style['stroke'] = opt.stroke;
+        this.obj[len].style['fill'] = opt.fill;
+        (opt.style != null) ? this.obj[len].style = opt.style : null;
+
+        opt.top = opt.top ?? parseInt(this.obj[len].style['stroke-width']);
+        opt.left = opt.left ?? parseInt(this.obj[len].style['stroke-width']);
+
         var xMin = opt.points.map(p => p.x).sort(function (a, b) { return a - b })[0];
         var yMax = opt.points.map(p => p.y).sort(function (a, b) { return b - a })[0];
 
@@ -47,10 +49,10 @@ class svgModule {
             var y = (opt.points[i].y - yMax) * opt.zoom;
             svgPoints += `${(x >= 0) ? x + opt.left : x * -1 + opt.left},${(y >= 0) ? y + opt.top : y * -1 + opt.top} `;
         }
-       
-        this.obj.setAttribute('points', svgPoints);
 
-        this.svgObj.appendChild(this.obj);
+        this.obj[len].setAttribute('points', svgPoints);
+
+        this.svgObj.appendChild(this.obj[len]);
 
         return this;
     }
