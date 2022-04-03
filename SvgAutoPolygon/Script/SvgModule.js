@@ -55,6 +55,37 @@ class svgModule {
         return this;
     }
 
+    //opt{id, r, top?, left?, fill?, stroke?, strokeWidth?, style?}
+    //id: circle object's id (default = null)
+    //fill: color for fill (style, default = 'white')
+    //stroke: color for stroke (style, default = 'black')
+    //strokeWidth: value for stroke-width (style, can use both int and string, default = 1)
+    //style: edit element's style by string (can just use this to edit style)
+    //top: value for shift circle (default = stroke-width + r)
+    //left: value for shift circle (default = stroke-width + r)
+    //* when style has been setted, it will overwrite every style's setting before, even with default value.
+    addCircle(opt){
+        opt.strokeWidth = opt.strokeWidth ?? 1;
+        opt.stroke = opt.stroke ?? 'black';
+        opt.fill = opt.fill ?? 'white';
+
+        this.obj.push(document.createElementNS("http://www.w3.org/2000/svg", 'circle'));
+        var len = this.obj.length - 1;
+        (opt.id != null) ? this.obj[len].setAttribute('id', opt.id) : null;
+        this.obj[len].style['stroke-width'] = `${opt.strokeWidth}`;
+        this.obj[len].style['stroke'] = opt.stroke;
+        this.obj[len].style['fill'] = opt.fill;
+        (opt.style != null) ? (this.obj[len].style = opt.style) : null;
+
+        opt.top = opt.top ?? parseInt(this.obj[len].style['stroke-width']) + opt.r;
+        opt.left = opt.left ?? parseInt(this.obj[len].style['stroke-width']) + opt.r;
+        this.obj[len].setAttribute('r', opt.r);
+        this.obj[len].setAttribute('cx', opt.left);
+        this.obj[len].setAttribute('cy', opt.top);
+
+        return this;
+    }
+
     //initialize svgModule to target svg element
     init() {
         for (var i = this.obj.length - 1; i >= 0; i--) {
