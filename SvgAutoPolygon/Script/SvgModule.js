@@ -52,13 +52,14 @@ class svgModule {
 
         this.obj[len].setAttribute('points', svgPoints);
 
-        this.svgObj.appendChild(this.obj[len]);
-
         return this;
     }
 
     //initialize svgModule to target svg element
     init() {
+        for (var i = this.obj.length - 1; i >= 0; i--) {
+            this.svgObj.appendChild(this.obj[i]);
+        }
         this.divObj.appendChild(this.svgObj);
         return this;
     }

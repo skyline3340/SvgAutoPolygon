@@ -25,7 +25,7 @@
     <div class="col">
         <div id="div2"></div>
         <div class="col">
-            <div id="div3"></div>
+            <div style="background-color: black;" id="div3"></div>
         </div>
     </div>
 
@@ -108,23 +108,23 @@
             .init();
 
         //build a icon for layer.
-        var polygon4 = new svgModule('div3', null, 300, 300)
+        var polygon4 = new svgModule('div3', null, 310, 200)
             .addPolygon({
                 points: polyPoint5,
                 zoom: 50,
-                top: 95,
-                style: "fill: #8c8c8c; stroke: white; stroke-width: 6;"
+                style: "fill: #cccccc; stroke: black; stroke-width: 8;"
             })
             .addPolygon({
                 points: polyPoint5,
                 zoom: 50,
                 top: 50,
-                style: "fill: #a6a6a6; stroke: white; stroke-width: 6;"
+                style: "fill: #a6a6a6; stroke: black; stroke-width: 8;"
             })
             .addPolygon({
                 points: polyPoint5,
                 zoom: 50,
-                style: "fill: #cccccc; stroke: white; stroke-width: 6;"
+                top: 95,
+                style: "fill: #8c8c8c; stroke: black; stroke-width: 8;"
             })
             .init();
     </script>
