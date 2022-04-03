@@ -35,7 +35,7 @@ class svgModule {
         this.obj[len].style['stroke-width'] = `${opt.strokeWidth}`;
         this.obj[len].style['stroke'] = opt.stroke;
         this.obj[len].style['fill'] = opt.fill;
-        (opt.style != null) ? this.obj[len].style = opt.style : null;
+        (opt.style != null) ? (this.obj[len].style = opt.style) : null;
 
         opt.top = opt.top ?? parseInt(this.obj[len].style['stroke-width']);
         opt.left = opt.left ?? parseInt(this.obj[len].style['stroke-width']);

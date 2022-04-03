@@ -8,21 +8,27 @@
     <title>Sample</title>
     <script src="./Script/SvgModule.js"></script>
     <style>
-        body {
+        .row {
             display: flex;
             flex-direction: row;
         }
 
-        div {
+        .col {
             display: flex;
             flex-direction: column;
         }
     </style>
 </head>
 
-<body>
-    <div id="div1"></div>
-    <div id="div2"></div>
+<body class="row">
+    <div class="col" id="div1"></div>
+    <div class="col">
+        <div id="div2"></div>
+        <div class="col">
+            <div id="div3"></div>
+        </div>
+    </div>
+
 
     <script>
 
@@ -49,6 +55,13 @@
             { x: 0, y: 0 },
             { x: 2.5, y: 5 },
             { x: 5, y: 0 }
+        ]
+
+        let polyPoint5 = [
+            { x: 0, y: 1 },
+            { x: 3, y: 2 },
+            { x: 6, y: 1 },
+            { x: 3, y: 0 }
         ]
 
         //create polygon by using default style option.
@@ -91,6 +104,27 @@
                 zoom: 40,
                 left: 80,
                 style: "fill: red; stroke-width: 0;"
+            })
+            .init();
+
+        //build a icon for layer.
+        var polygon4 = new svgModule('div3', null, 300, 300)
+            .addPolygon({
+                points: polyPoint5,
+                zoom: 50,
+                top: 95,
+                style: "fill: #8c8c8c; stroke: white; stroke-width: 6;"
+            })
+            .addPolygon({
+                points: polyPoint5,
+                zoom: 50,
+                top: 50,
+                style: "fill: #a6a6a6; stroke: white; stroke-width: 6;"
+            })
+            .addPolygon({
+                points: polyPoint5,
+                zoom: 50,
+                style: "fill: #cccccc; stroke: white; stroke-width: 6;"
             })
             .init();
     </script>
