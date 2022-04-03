@@ -8,6 +8,19 @@
     <title>Sample</title>
     <script src="./Script/SvgModule.js"></script>
     <style>
+        body {
+            overflow-x: scroll;
+        }
+
+        .title {
+            text-align: center;
+            font-size: 2em;
+            font-family: sans-serif;
+            font-weight: bold;
+            margin-bottom: .3em;
+            border: 1px black solid;
+        }
+
         .row {
             display: flex;
             flex-direction: row;
@@ -22,6 +35,10 @@
             margin-left: 1em;
         }
 
+        .obj {
+            background-color: black;
+        }
+
         label {
             border: 1px black solid;
             text-align: center;
@@ -33,146 +50,54 @@
     </style>
 </head>
 
-<body class="row">
-    <div class="col group">
-        <label>Create Polygon.</label>
-        <div class="col" id="div1"></div>
+<body>
+    <div class="col">
+        <span class="title">SVG Module</span>
+        <div class="row">
+            <div class="col group">
+                <label>Create Polygon</label>
+                <div class="obj" id="div1"></div>
+                <label>Polygon 1</label>
+                <div class="obj" id="div2"></div>
+                <label>Polygon 2</label>
+            </div>
+
+            <div class="col group">
+                <label>Multi Polygon</label>
+                <div class="obj" id="div3"></div>
+                <label>Polygon 3</label>
+            </div>
+
+            <div class="col group">
+                <label>Create Circle</label>
+                <div class="obj" id="div4"></div>
+                <label>Circle 1</label>
+            </div>
+
+            <div class="col group">
+                <label>Create Line</label>
+                <div class="obj" id="div5"></div>
+                <label>Polyline 1</label>
+            </div>
+
+            <div class="col group">
+                <label>Create Ellipse</label>
+                <div class="obj" id="div6"></div>
+            </div>
+
+            <div class="col group">
+                <label>Example</label>
+                <div class="obj" id="ex1"></div>
+                <label>Example 1</label>
+                <div class="obj" id="ex2"></div>
+                <label>Example 2</label>
+                <div class="col obj" id="ex3"></div>
+                <label>Example 3</label>
+            </div>
+        </div>
     </div>
 
-    <div class="col group">
-        <label>Drawing Example.</label>
-        <div id="div2"></div>
-        <div style="background-color: black;" id="div3"></div>
-    </div>
-
-    <div class="col group">
-        <label>Create Circle.</label>
-        <div id="div4"></div>
-        <div style="background-color: black;" id="div5"></div>
-    </div>
-
-
-    <script>
-        //polygon's points.
-        let polyPoint1 = [
-            { x: 0, y: 1 },
-            { x: 3, y: 2 },
-            { x: 6, y: 1 },
-            { x: 3, y: 0 }
-        ]
-
-        //create polygon by using default style option.
-        var polygon1 = new svgModule('div1', null, 300, 250)
-            .addPolygon({
-                id: 'polygon1',
-                points: [
-                    { y: -25.774, x: 80.19 },
-                    { y: -18.466, x: 66.118 },
-                    { y: -40.321, x: 50.757 },
-                ],
-                zoom: 10,
-                fill: 'aqua',
-                stroke: 'red',
-                strokeWidth: 3,
-            })
-            .init();
-
-        //create polygon by using style value.
-        var polygon2 = new svgModule('div1', null, 300, 350)
-            .addPolygon({
-                id: 'polygon2',
-                points: [
-                    { y: -25.774, x: 80.19 },
-                    { y: 18.466, x: 66.118 },
-                    { y: -40.321, x: 50.757 },
-                ],
-                zoom: 5,
-                top: 15,
-                letf: 15,
-                style: "fill: red; stroke: blue; stroke-width: 5;"
-            })
-            .init();
-
-        //create multi polygon by using shift option.
-        var example1 = new svgModule('div2', null, 300, 300)
-            .addPolygon({
-                points: [
-                    { x: 0, y: 5 },
-                    { x: 2.5, y: 0 },
-                    { x: 5, y: 5 }
-                ],
-                zoom: 40,
-                left: 60,
-                top: 50,
-                style: "fill: red; stroke-width: 0;"
-            })
-            .addPolygon({
-                points: [
-                    { x: 0, y: 0 },
-                    { x: 2.5, y: 5 },
-                    { x: 5, y: 0 }
-                ],
-                zoom: 40,
-                left: 60,
-                style: "fill: red; stroke-width: 0;"
-            })
-            .init();
-
-        //build a icon for layer.
-        var example2 = new svgModule('div3', null, 310, 200)
-            .addPolygon({
-                points: polyPoint1,
-                zoom: 50,
-                style: "fill: #cccccc; stroke: black; stroke-width: 8;"
-            })
-            .addPolygon({
-                points: polyPoint1,
-                zoom: 50,
-                top: 50,
-                style: "fill: #a6a6a6; stroke: black; stroke-width: 8;"
-            })
-            .addPolygon({
-                points: polyPoint1,
-                zoom: 50,
-                top: 95,
-                style: "fill: #8c8c8c; stroke: black; stroke-width: 8;"
-            })
-            .init();
-
-        //create circle and drawing something
-        var circle1 = new svgModule('div4', null, 300, 300)
-            .addCircle({
-                r: 50,
-                fill: 'red',
-                stroke: 'black',
-                strokeWidth: 3,
-                top: 123,
-                left: 153,
-            })
-            .init();
-
-        //build a icon for power button.
-        var example3 = new svgModule('div5', null, 300, 200)
-            .addPolygon({
-                points: [
-                    { x: 0, y: 0 },
-                    { x: 0, y: 15 },
-                    { x: 5, y: 15 },
-                    { x: 5, y: 0 },
-                ],
-                zoom: 5,
-                top: 35,
-                left: 142,
-                style: "fill: white; stroke: black; stroke-width: 8;",
-            })
-            .addCircle({
-                r: 50,
-                top: 113,
-                left: 153,
-                style: "fill: black; stroke: white; stroke-width: 10;"
-            })
-            .init();
-    </script>
+    <script src="./Script/Sample.js"></script>
 </body>
 
 </html>
