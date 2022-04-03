@@ -86,6 +86,30 @@ class svgModule {
         return this;
     }
 
+    //opt{id?, rx, ry, top?, left?, fill?, stroke?, strokeWidth?, style?}
+    addEllipse(opt){
+        opt.strokeWidth = opt.strokeWidth ?? 1;
+        opt.stroke = opt.stroke ?? 'black';
+        opt.fill = opt.fill ?? 'none';
+
+        this.obj.push(document.createElementNS("http://www.w3.org/2000/svg", 'ellipse'));
+        var len = this.obj.length - 1;
+        (opt.id != null) ? this.obj[len].setAttribute('id', opt.id) : null;
+        this.obj[len].style['stroke-width'] = `${opt.strokeWidth}`;
+        this.obj[len].style['stroke'] = opt.stroke;
+        this.obj[len].style['fill'] = opt.fill;
+        (opt.style != null) ? (this.obj[len].style = opt.style) : null;
+
+        opt.top = opt.top ?? parseInt(this.obj[len].style['stroke-width']) + opt.ry;
+        opt.left = opt.left ?? parseInt(this.obj[len].style['stroke-width']) + opt.rx;
+        this.obj[len].setAttribute('rx', opt.rx);
+        this.obj[len].setAttribute('ry', opt.ry);
+        this.obj[len].setAttribute('cx', opt.left);
+        this.obj[len].setAttribute('cy', opt.top);
+
+        return this;
+    }
+
     //opt{id?, points, zoom?, fill?, stroke?, strokeWidth?, style?, top?, left?}
     addLine(opt) {
         opt.strokeWidth = opt.strokeWidth ?? 1;

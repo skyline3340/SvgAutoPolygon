@@ -78,8 +78,19 @@ var circle1 = new svgModule('div4', null, 300, 300)
     })
     .init();
 
+//
+var ellipse1 = new svgModule('div5', null, 300, 300)
+    .addEllipse({
+        rx: 100,
+        ry: 50,
+        top: 145,
+        left: 145,
+        style: "fill: coral; stroke: white; stroke-width: 5;",
+    })
+    .init();
+
 //create a polyline
-var polyline1 = new svgModule('div5', null, 300, 300)
+var polyline1 = new svgModule('div6', null, 300, 300)
     .addLine({
         points: [
             { x: 0, y: 0 },
