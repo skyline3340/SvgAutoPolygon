@@ -65,6 +65,36 @@ var polygon3 = new svgModule('div3', null, 300, 300)
     })
     .init();
 
+//build a tree by using polygons
+var polygon4 = new svgModule('div7', null, 300, 300)
+    .addPolygon({
+        points: [
+            { x: 0, y: 0 },
+            { x: 1.5, y: 2 },
+            { x: 3, y: 0 }
+        ],
+        zoom: 40,
+        strokeWidth: 0,
+    })
+    .init(3);
+var a = 40;
+polygon4.get(0).setZoom(0.8).setTop(a).setLeft(100).setFill("#00cc44");
+polygon4.get(1).setTop(a + 35).setLeft(88).setFill("#009933");
+polygon4.get(2).setZoom(1.2).setTop(a + 70).setLeft(77).setFill("#006622");
+polygon4.addPolygon({
+    points: [
+        { x: 0, y: 0 },
+        { x: 0.7, y: 0 },
+        { x: 0.7, y: 2 },
+        { x: 0, y: 2 },
+    ],
+    zoom: 40,
+    left: 135,
+    top: 170,
+    style: "fill: #663300; stroke-width: 0;",
+})
+    .init();
+
 //create circle and drawing something
 var circle1 = new svgModule('div4', null, 300, 300)
     .addCircle({
@@ -85,6 +115,30 @@ var ellipse1 = new svgModule('div5', null, 300, 300)
         top: 145,
         left: 145,
         style: "fill: coral; stroke: white; stroke-width: 5;",
+    })
+    .init();
+
+//
+var ellipse2 = new svgModule('div8', null, 300, 300)
+    .addEllipse({
+        rx: 30,
+        ry: 120,
+        left: 210,
+        top: 0,
+        style: "fill: none; stroke: white; stroke-width: 5; transform: rotate(45deg);"
+    })
+    .addEllipse({
+        rx: 30,
+        ry: 120,
+        left: 0,
+        top: 210,
+        style: "fill: none; stroke: white; stroke-width: 5; transform: rotate(-45deg);"
+    })
+    .addCircle({
+        r: 20,
+        top: 148,
+        left: 148,
+        style: "fill: white; stroke-width: 0;"
     })
     .init();
 

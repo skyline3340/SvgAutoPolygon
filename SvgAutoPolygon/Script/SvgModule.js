@@ -37,8 +37,8 @@ class svgModule {
         this.obj[len].style['fill'] = opt.fill;
         (opt.style != null) ? (this.obj[len].style = opt.style) : null;
 
-        opt.top = opt.top ?? parseInt(this.obj[len].style['stroke-width']);
-        opt.left = opt.left ?? parseInt(this.obj[len].style['stroke-width']);
+        opt.top = opt.top ?? parseInt(this.obj[len].style['stroke-width'] ?? "0");
+        opt.left = opt.left ?? parseInt(this.obj[len].style['stroke-width'] ?? "0");
 
         var xMin = opt.points.map(p => p.x).sort(function (a, b) { return a - b })[0];
         var yMax = opt.points.map(p => p.y).sort(function (a, b) { return b - a })[0];
@@ -229,7 +229,14 @@ class svgModule {
     }
 
     //initialize svgModule to target svg element
-    init() {
+    init(count) {
+        count = count ?? 0;
+        var len = this.obj.length;
+        for (var i = 1; i < count; i++) {
+            for (var j = 0; j < len; j++) {
+                this.obj.push(this.obj[j].cloneNode(true));
+            }
+        }
         for (var i = this.obj.length - 1; i >= 0; i--) {
             this.svgObj.appendChild(this.obj[i]);
         }
