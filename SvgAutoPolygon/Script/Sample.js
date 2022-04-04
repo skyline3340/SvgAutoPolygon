@@ -37,7 +37,7 @@ var polygon2 = new svgModule('div2', null, 300, 300)
     })
     .init();
 
-polygon2.get(0).setZoom(4.5).setTop(20).setLeft(85);
+polygon2.setZoom(4.5).setLeft(85).setTop(20);
 
 //create multi polygon by using shift option.
 var polygon3 = new svgModule('div3', null, 300, 300)
