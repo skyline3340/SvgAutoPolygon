@@ -11,9 +11,9 @@ var polygon1 = new svgModule('div1', null, 300, 300)
     .addPolygon({
         id: 'polygon1',
         points: [
-            { y: -25.774, x: 80.19 },
-            { y: -18.466, x: 66.118 },
-            { y: -40.321, x: 50.757 },
+            { x: 80.19, y: -25.774 },
+            { x: 66.118, y: -18.466 },
+            { x: 50.757, y: -40.321 },
         ],
         zoom: 8.5,
         top: 50,
@@ -29,16 +29,15 @@ var polygon2 = new svgModule('div2', null, 300, 300)
     .addPolygon({
         id: 'polygon2',
         points: [
-            { y: -25.774, x: 80.19 },
-            { y: 18.466, x: 66.118 },
-            { y: -40.321, x: 50.757 },
+            { x: 80.19, y: -25.774 },
+            { x: 66.118, y: 18.466 },
+            { x: 50.757, y: -40.321 },
         ],
-        zoom: 4.5,
-        top: 20,
-        left: 85,
         style: "fill: red; stroke: white; stroke-width: 5;"
     })
     .init();
+
+polygon2.get(0).setZoom(4.5).setTop(20).setLeft(85);
 
 //create multi polygon by using shift option.
 var polygon3 = new svgModule('div3', null, 300, 300)
@@ -78,7 +77,7 @@ var circle1 = new svgModule('div4', null, 300, 300)
     })
     .init();
 
-//
+//create a ellipse
 var ellipse1 = new svgModule('div5', null, 300, 300)
     .addEllipse({
         rx: 100,

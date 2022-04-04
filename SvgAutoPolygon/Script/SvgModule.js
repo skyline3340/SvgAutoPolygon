@@ -37,8 +37,8 @@ class svgModule {
         this.obj[len].style['fill'] = opt.fill;
         (opt.style != null) ? (this.obj[len].style = opt.style) : null;
 
-        opt.top = opt.top ?? parseInt(this.obj[len].style['stroke-width']);
-        opt.left = opt.left ?? parseInt(this.obj[len].style['stroke-width']);
+        opt.top = opt.top ?? this.obj[len].style['stroke-width'];
+        opt.left = opt.left ?? this.obj[len].style['stroke-width'];
 
         var xMin = opt.points.map(p => p.x).sort(function (a, b) { return a - b })[0];
         var yMax = opt.points.map(p => p.y).sort(function (a, b) { return b - a })[0];
@@ -77,8 +77,8 @@ class svgModule {
         this.obj[len].style['fill'] = opt.fill;
         (opt.style != null) ? (this.obj[len].style = opt.style) : null;
 
-        opt.top = opt.top ?? parseInt(this.obj[len].style['stroke-width']) + opt.r;
-        opt.left = opt.left ?? parseInt(this.obj[len].style['stroke-width']) + opt.r;
+        opt.top = opt.top ?? this.obj[len].style['stroke-width'] + opt.r;
+        opt.left = opt.left ?? this.obj[len].style['stroke-width'] + opt.r;
         this.obj[len].setAttribute('r', opt.r);
         this.obj[len].setAttribute('cx', opt.left);
         this.obj[len].setAttribute('cy', opt.top);
@@ -87,7 +87,7 @@ class svgModule {
     }
 
     //opt{id?, rx, ry, top?, left?, fill?, stroke?, strokeWidth?, style?}
-    addEllipse(opt){
+    addEllipse(opt) {
         opt.strokeWidth = opt.strokeWidth ?? 1;
         opt.stroke = opt.stroke ?? 'black';
         opt.fill = opt.fill ?? 'none';
@@ -100,8 +100,8 @@ class svgModule {
         this.obj[len].style['fill'] = opt.fill;
         (opt.style != null) ? (this.obj[len].style = opt.style) : null;
 
-        opt.top = opt.top ?? parseInt(this.obj[len].style['stroke-width']) + opt.ry;
-        opt.left = opt.left ?? parseInt(this.obj[len].style['stroke-width']) + opt.rx;
+        opt.top = opt.top ?? this.obj[len].style['stroke-width'] + opt.ry;
+        opt.left = opt.left ?? this.obj[len].style['stroke-width'] + opt.rx;
         this.obj[len].setAttribute('rx', opt.rx);
         this.obj[len].setAttribute('ry', opt.ry);
         this.obj[len].setAttribute('cx', opt.left);
@@ -125,8 +125,8 @@ class svgModule {
         this.obj[len].style['fill'] = opt.fill;
         (opt.style != null) ? (this.obj[len].style = opt.style) : null;
 
-        opt.top = opt.top ?? parseInt(this.obj[len].style['stroke-width']);
-        opt.left = opt.left ?? parseInt(this.obj[len].style['stroke-width']);
+        opt.top = opt.top ?? this.obj[len].style['stroke-width'];
+        opt.left = opt.left ?? this.obj[len].style['stroke-width'];
 
         var xMin = opt.points.map(p => p.x).sort(function (a, b) { return a - b })[0];
         var yMax = opt.points.map(p => p.y).sort(function (a, b) { return b - a })[0];
@@ -140,6 +140,71 @@ class svgModule {
 
         this.obj[len].setAttribute('points', svgPoints);
 
+        return this;
+    }
+
+    get(index) {
+        this.getObj = this.obj[index];
+        return this;
+    }
+
+    setZoom(zoom) {
+        zoom = zoom ?? 1;
+        var svgPoints = [];
+        for (var i = 0; i < this.getObj.points.length; i++) {
+            svgPoints.push({ x: this.getObj.points[i].x, y: this.getObj.points[i].y });
+        }
+
+        var top = this.getObj.style['stroke-width'];
+        var left = this.getObj.style['stroke-width'];
+
+        var xMin = svgPoints.map(p => p.x).sort(function (a, b) { return a - b })[0];
+        var yMin = svgPoints.map(p => p.y).sort(function (a, b) { return a - b })[0];
+
+        var points = "";
+        for (var i = 0; i < svgPoints.length; i++) {
+            var x = (svgPoints[i].x - xMin) * zoom;
+            var y = (svgPoints[i].y - yMin) * zoom;
+            points += `${(x >= 0) ? x + left : x * -1 + left},${(y >= 0) ? y + top : y * -1 + top} `;
+        }
+
+        this.getObj.setAttribute('points', points);
+        return this;
+    }
+
+    setTop(top) {
+        top = top ?? null;
+        var svgPoints = [];
+        for (var i = 0; i < this.getObj.points.length; i++) {
+            svgPoints.push({ x: this.getObj.points[i].x, y: this.getObj.points[i].y });
+        }
+
+        var points = "";
+        for (var i = 0; i < svgPoints.length; i++) {
+            var x = svgPoints[i].x;
+            var y = svgPoints[i].y + top - this.getObj.style['stroke-width'];
+            points += `${x},${y} `;
+        }
+
+        this.getObj.setAttribute('points', points);
+        return this;
+    }
+
+    setLeft(left){
+        left = left ?? null;
+        var svgPoints = [];
+        for (var i = 0; i < this.getObj.points.length; i++) {
+            svgPoints.push({ x: this.getObj.points[i].x, y: this.getObj.points[i].y });
+        }
+        
+        var points = "";
+        for (var i = 0; i < svgPoints.length; i++) {
+            var x = svgPoints[i].x + left - this.getObj.style['stroke-width'];
+            var y = svgPoints[i].y;
+            points += `${x},${y} `;
+        }
+
+        this.getObj.setAttribute('points', points);
         return this;
     }
 
