@@ -174,15 +174,11 @@ class svgModule {
 
     setTop(top) {
         this.getObj = this.getObj ?? this.obj[0];
-        var svgPoints = [];
-        for (var i = 0; i < this.getObj.points.length; i++) {
-            svgPoints.push({ x: this.getObj.points[i].x, y: this.getObj.points[i].y });
-        }
 
         var points = "";
-        for (var i = 0; i < svgPoints.length; i++) {
-            var x = svgPoints[i].x;
-            var y = svgPoints[i].y + top - parseInt(this.getObj.style['stroke-width']);
+        for (var i = 0; i < this.getObj.points.length; i++) {
+            var x = this.getObj.points[i].x;
+            var y = this.getObj.points[i].y + top - parseInt(this.getObj.style['stroke-width']);
             points += `${x},${y} `;
         }
 
@@ -192,15 +188,11 @@ class svgModule {
 
     setLeft(left) {
         this.getObj = this.getObj ?? this.obj[0];
-        var svgPoints = [];
-        for (var i = 0; i < this.getObj.points.length; i++) {
-            svgPoints.push({ x: this.getObj.points[i].x, y: this.getObj.points[i].y });
-        }
 
         var points = "";
-        for (var i = 0; i < svgPoints.length; i++) {
-            var x = svgPoints[i].x + left - parseInt(this.getObj.style['stroke-width']);
-            var y = svgPoints[i].y;
+        for (var i = 0; i < this.getObj.points.length; i++) {
+            var x = this.getObj.points[i].x + left - parseInt(this.getObj.style['stroke-width']);
+            var y = this.getObj.points[i].y;
             points += `${x},${y} `;
         }
 
