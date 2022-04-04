@@ -200,6 +200,34 @@ class svgModule {
         return this;
     }
 
+    setStyle(style) {
+        this.getObj = this.getObj ?? this.obj[0];
+
+        this.getObj.style = style;
+        return this;
+    }
+
+    setFill(fill) {
+        this.getObj = this.getObj ?? this.obj[0];
+
+        this.getObj.style['fill'] = fill;
+        return this;
+    }
+
+    setStroke(stroke) {
+        this.getObj = this.getObj ?? this.obj[0];
+
+        this.getObj.style['stroke'] = stroke;
+        return this;
+    }
+
+    setStrokeWidth(width) {
+        this.getObj = this.getObj ?? this.obj[0];
+
+        this.getObj.style['stroke-width'] = `${width}`;
+        return this;
+    }
+
     //initialize svgModule to target svg element
     init() {
         for (var i = this.obj.length - 1; i >= 0; i--) {
