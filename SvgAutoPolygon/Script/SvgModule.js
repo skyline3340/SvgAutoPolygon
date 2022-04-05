@@ -152,6 +152,7 @@ class svgModule {
 
         this.obj.push(document.createElementNS("http://www.w3.org/2000/svg", 'text'));
         var len = this.obj.length - 1;
+        this.obj[len].appendChild(document.createTextNode(opt.text));
         (opt.id != null) ? this.obj[len].setAttribute('id', opt.id) : null;
         this.obj[len].setAttribute('x', opt.left);
         this.obj[len].setAttribute('y', opt.top);

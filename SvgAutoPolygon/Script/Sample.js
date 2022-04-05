@@ -117,6 +117,14 @@ var circle2 = new svgModule('c2', null, 300, 300)
         strokeWidth: 5,
         quantity: 5
     })
+    .addText({
+        text: 'OLYMPIC',
+        fontFamily: 'sans-serif',
+        fontSize: '2em',
+        fill: 'white',
+        top: 260,
+        left: 80
+    })
     .init();
 circle2.get(0).setTop(130).setLeft(60);
 circle2.get(1).setTop(130).setLeft(150);
@@ -140,24 +148,33 @@ var ellipse2 = new svgModule('e2', null, 300, 300)
     .addEllipse({
         rx: 30,
         ry: 120,
-        left: 210,
-        top: 0,
-        style: "fill: none; stroke: white; stroke-width: 5; transform: rotate(45deg);"
+        quantity: 2,
+    })
+    .addCircle({
+        r: 10,
+        style: "fill: white; stroke-width: 0;",
+        quantity: 3,
     })
     .addEllipse({
         rx: 30,
         ry: 120,
-        left: 0,
-        top: 210,
-        style: "fill: none; stroke: white; stroke-width: 5; transform: rotate(-45deg);"
+        top: 145,
+        left: 150,
+        style: "fill: none; stroke: white; stroke-width: 5;"
     })
     .addCircle({
         r: 20,
         top: 148,
-        left: 148,
+        left: 150,
         style: "fill: white; stroke-width: 0;"
     })
     .init();
+
+ellipse2.get(0).setTop(-18).setLeft(210).setStyle("fill: none; stroke: white; stroke-width: 5; transform: rotate(50deg);");
+ellipse2.get(1).setTop(210).setLeft(-18).setStyle("fill: none; stroke: white; stroke-width: 5; transform: rotate(-50deg);");
+ellipse2.get(2).setTop(80).setLeft(100);
+ellipse2.get(3).setTop(218).setLeft(100);
+ellipse2.get(4).setTop(190).setLeft(230);
 
 //create a polyline
 var polyline1 = new svgModule('pl1', null, 300, 300)
