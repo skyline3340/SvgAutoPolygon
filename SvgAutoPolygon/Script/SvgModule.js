@@ -51,7 +51,7 @@ class svgModule {
         }
 
         this.obj[len].setAttribute('points', svgPoints);
-        this.setMultiObj(opt.quantity, this.obj[len]);
+        (opt.quantity != null) ? this.setMultiObj(opt.quantity, this.obj[len]) : null;
         return this;
     }
 
@@ -82,7 +82,7 @@ class svgModule {
         this.obj[len].setAttribute('r', opt.r);
         this.obj[len].setAttribute('cx', opt.left);
         this.obj[len].setAttribute('cy', opt.top);
-        this.setMultiObj(opt.quantity, this.obj[len]);
+        (opt.quantity != null) ? this.setMultiObj(opt.quantity, this.obj[len]) : null;
         return this;
     }
 
@@ -106,7 +106,7 @@ class svgModule {
         this.obj[len].setAttribute('ry', opt.ry);
         this.obj[len].setAttribute('cx', opt.left);
         this.obj[len].setAttribute('cy', opt.top);
-        this.setMultiObj(opt.quantity, this.obj[len]);
+        (opt.quantity != null) ? this.setMultiObj(opt.quantity, this.obj[len]) : null;
         return this;
     }
 
@@ -139,7 +139,29 @@ class svgModule {
         }
 
         this.obj[len].setAttribute('points', svgPoints);
-        this.setMultiObj(opt.quantity, this.obj[len]);
+        (opt.quantity != null) ? this.setMultiObj(opt.quantity, this.obj[len]) : null;
+        return this;
+    }
+
+    //opt{id?, text?, fill?, fontSize?, fontWeight?, fontFamily?, top?, left?, style?, quantity?}
+    addText(opt){
+        opt.fill = opt.fill ?? 'none';
+        opt.text = opt.text ?? '';
+        opt.top = opt.top ?? 0;
+        opt.left = opt.left ?? 0;
+
+        this.obj.push(document.createElementNS("http://www.w3.org/2000/svg", 'text'));
+        var len = this.obj.length - 1;
+        (opt.id != null) ? this.obj[len].setAttribute('id', opt.id) : null;
+        this.obj[len].setAttribute('x', opt.left);
+        this.obj[len].setAttribute('y', opt.top);
+        this.obj[len].style['fill'] = opt.fill;
+        (opt.fontSize != null) ? this.obj[len].style['font-size'] = `${opt.fontSize}` : null;
+        (opt.fontWeight != null) ? this.obj[len].style['font-weight'] = `${opt.fontWeight}` : null;
+        (opt.fontFamily != null) ? this.obj[len].style['font-family'] = `${opt.fontFamily}` : null;
+        (opt.style != null) ? (this.obj[len].style = opt.style) : null;
+
+        (opt.quantity != null) ? this.setMultiObj(opt.quantity, this.obj[len]) : null;
         return this;
     }
 
