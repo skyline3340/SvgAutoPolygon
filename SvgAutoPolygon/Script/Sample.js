@@ -109,7 +109,7 @@ var circle1 = new svgModule('c1', null, 300, 300)
     .init();
 
 //create olympic logo
-var circle2 = new svgModule('c2',null,300,300)
+var circle2 = new svgModule('c2', null, 300, 300)
     .addCircle({
         r: 40,
         fill: 'none',
@@ -170,6 +170,25 @@ var polyline1 = new svgModule('pl1', null, 300, 300)
         top: 50,
         left: 50,
         style: "fill: none; stroke: white; stroke-width: 5;"
+    })
+    .init();
+
+//
+var polyline2 = new svgModule('pl2', null, 300, 300)
+    .addLine({
+        points: [
+            { x: 0, y: 40 },
+            { x: 40, y: 40 },
+            { x: 40, y: 80 },
+            { x: 80, y: 80 },
+            { x: 80, y: 120 },
+            { x: 120, y: 120 },
+            { x: 120, y: 160 }
+        ],
+        zoom: 2,
+        top: 20,
+        left: 25,
+        style: "fill: none; stroke: white; stroke-width: 5;",
     })
     .init();
 
