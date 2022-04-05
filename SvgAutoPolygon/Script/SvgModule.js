@@ -12,7 +12,7 @@ class svgModule {
         this.obj = [];
     }
 
-    //opt{id?, points, zoom?, fill?, stroke?, strokeWidth?, style?, top?, left?}
+    //opt{id?, points, zoom?, fill?, stroke?, strokeWidth?, style?, top?, left?, quantity?}
     //id: polygon object's id (default = null)
     //points: polygon object's points by using [{x: value, y: value},......]
     //zoom: value for zoom (can use both int and string, default = 1)
@@ -51,11 +51,11 @@ class svgModule {
         }
 
         this.obj[len].setAttribute('points', svgPoints);
-
+        this.setMultiObj(opt.quantity, this.obj[len]);
         return this;
     }
 
-    //opt{id?, r, top?, left?, fill?, stroke?, strokeWidth?, style?}
+    //opt{id?, r, top?, left?, fill?, stroke?, strokeWidth?, style?, quantity?}
     //id: circle object's id (default = null)
     //fill: color for fill (style, default = 'none')
     //stroke: color for stroke (style, default = 'black')
@@ -82,11 +82,11 @@ class svgModule {
         this.obj[len].setAttribute('r', opt.r);
         this.obj[len].setAttribute('cx', opt.left);
         this.obj[len].setAttribute('cy', opt.top);
-
+        this.setMultiObj(opt.quantity, this.obj[len]);
         return this;
     }
 
-    //opt{id?, rx, ry, top?, left?, fill?, stroke?, strokeWidth?, style?}
+    //opt{id?, rx, ry, top?, left?, fill?, stroke?, strokeWidth?, style?, quantity?}
     addEllipse(opt) {
         opt.strokeWidth = opt.strokeWidth ?? 1;
         opt.stroke = opt.stroke ?? 'black';
@@ -106,11 +106,11 @@ class svgModule {
         this.obj[len].setAttribute('ry', opt.ry);
         this.obj[len].setAttribute('cx', opt.left);
         this.obj[len].setAttribute('cy', opt.top);
-
+        this.setMultiObj(opt.quantity, this.obj[len]);
         return this;
     }
 
-    //opt{id?, points, zoom?, fill?, stroke?, strokeWidth?, style?, top?, left?}
+    //opt{id?, points, zoom?, fill?, stroke?, strokeWidth?, style?, top?, left?, quantity?}
     addLine(opt) {
         opt.strokeWidth = opt.strokeWidth ?? 1;
         opt.stroke = opt.stroke ?? 'black';
@@ -139,7 +139,7 @@ class svgModule {
         }
 
         this.obj[len].setAttribute('points', svgPoints);
-
+        this.setMultiObj(opt.quantity, this.obj[len]);
         return this;
     }
 
@@ -174,29 +174,47 @@ class svgModule {
 
     setTop(top) {
         this.getObj = this.getObj ?? this.obj[0];
+        var tagName = this.getObj.tagName;
 
-        var points = "";
-        for (var i = 0; i < this.getObj.points.length; i++) {
-            var x = this.getObj.points[i].x;
-            var y = this.getObj.points[i].y + top - parseInt(this.getObj.style['stroke-width']);
-            points += `${x},${y} `;
+        if (tagName == "polygon" || tagName == "polyline") {
+            var points = "";
+            for (var i = 0; i < this.getObj.points.length; i++) {
+                var x = this.getObj.points[i].x;
+                var y = this.getObj.points[i].y + top - parseInt(this.getObj.style['stroke-width']);
+                points += `${x},${y} `;
+            }
+
+            this.getObj.setAttribute('points', points);
+        }
+        else if (tagName == "circle" || tagName == "ellipse") {
+            // var r = parseInt(this.getObj.getAttribute('r') ?? this.getObj.getAttribute('ry'));
+            // var width = parseInt(this.getObj.style['stroke-width']);
+            this.getObj.setAttribute('cy', top);
         }
 
-        this.getObj.setAttribute('points', points);
         return this;
     }
 
     setLeft(left) {
         this.getObj = this.getObj ?? this.obj[0];
+        var tagName = this.getObj.tagName;
 
-        var points = "";
-        for (var i = 0; i < this.getObj.points.length; i++) {
-            var x = this.getObj.points[i].x + left - parseInt(this.getObj.style['stroke-width']);
-            var y = this.getObj.points[i].y;
-            points += `${x},${y} `;
+        if (tagName == "polygon" || tagName == "polyline") {
+            var points = "";
+            for (var i = 0; i < this.getObj.points.length; i++) {
+                var x = this.getObj.points[i].x + left - parseInt(this.getObj.style['stroke-width']);
+                var y = this.getObj.points[i].y;
+                points += `${x},${y} `;
+            }
+
+            this.getObj.setAttribute('points', points);
+        }
+        else if (tagName == "circle" || tagName == "ellipse") {
+            // var r = parseInt(this.getObj.getAttribute('r') ?? this.getObj.getAttribute('rx'));
+            // var width = parseInt(this.getObj.style['stroke-width']);
+            this.getObj.setAttribute('cx', left);
         }
 
-        this.getObj.setAttribute('points', points);
         return this;
     }
 
@@ -228,18 +246,27 @@ class svgModule {
         return this;
     }
 
+    setMultiObj(quantity, obj) {
+        for (var i = 1; i < quantity; i++) {
+            this.obj.push(obj.cloneNode(true));
+        }
+        return this;
+    }
+
     //initialize svgModule to target svg element
-    init(count) {
-        count = count ?? 0;
+    init(quantity) {
+        quantity = quantity ?? 0;
         var len = this.obj.length;
-        for (var i = 1; i < count; i++) {
+        for (var i = 1; i < quantity; i++) {
             for (var j = 0; j < len; j++) {
                 this.obj.push(this.obj[j].cloneNode(true));
             }
         }
+
         for (var i = this.obj.length - 1; i >= 0; i--) {
             this.svgObj.appendChild(this.obj[i]);
         }
+
         this.divObj.appendChild(this.svgObj);
         return this;
     }

@@ -7,7 +7,7 @@ let polyPoint1 = [
 ]
 
 //create polygon by using default style option.
-var polygon1 = new svgModule('div1', null, 300, 300)
+var polygon1 = new svgModule('pg1', null, 300, 300)
     .addPolygon({
         id: 'polygon1',
         points: [
@@ -25,7 +25,7 @@ var polygon1 = new svgModule('div1', null, 300, 300)
     .init();
 
 //create polygon by using style value.
-var polygon2 = new svgModule('div2', null, 300, 300)
+var polygon2 = new svgModule('pg2', null, 300, 300)
     .addPolygon({
         id: 'polygon2',
         points: [
@@ -40,7 +40,7 @@ var polygon2 = new svgModule('div2', null, 300, 300)
 polygon2.setZoom(4.5).setLeft(85).setTop(20);
 
 //create multi polygon by using shift option.
-var polygon3 = new svgModule('div3', null, 300, 300)
+var polygon3 = new svgModule('pg3', null, 300, 300)
     .addPolygon({
         points: [
             { x: 0, y: 5 },
@@ -66,7 +66,7 @@ var polygon3 = new svgModule('div3', null, 300, 300)
     .init();
 
 //build a tree by using polygons
-var polygon4 = new svgModule('div7', null, 300, 300)
+var polygon4 = new svgModule('pg4', null, 300, 300)
     .addPolygon({
         points: [
             { x: 0, y: 0 },
@@ -75,28 +75,29 @@ var polygon4 = new svgModule('div7', null, 300, 300)
         ],
         zoom: 40,
         strokeWidth: 0,
+        quantity: 3,
     })
-    .init(3);
+    .addPolygon({
+        points: [
+            { x: 0, y: 0 },
+            { x: 0.7, y: 0 },
+            { x: 0.7, y: 2 },
+            { x: 0, y: 2 },
+        ],
+        zoom: 40,
+        left: 135,
+        top: 170,
+        style: "fill: #663300; stroke-width: 0;",
+    })
+    .init();
+
 var a = 40;
 polygon4.get(0).setZoom(0.8).setTop(a).setLeft(100).setFill("#00cc44");
 polygon4.get(1).setTop(a + 35).setLeft(88).setFill("#009933");
 polygon4.get(2).setZoom(1.2).setTop(a + 70).setLeft(77).setFill("#006622");
-polygon4.addPolygon({
-    points: [
-        { x: 0, y: 0 },
-        { x: 0.7, y: 0 },
-        { x: 0.7, y: 2 },
-        { x: 0, y: 2 },
-    ],
-    zoom: 40,
-    left: 135,
-    top: 170,
-    style: "fill: #663300; stroke-width: 0;",
-})
-    .init();
 
 //create circle and drawing something
-var circle1 = new svgModule('div4', null, 300, 300)
+var circle1 = new svgModule('c1', null, 300, 300)
     .addCircle({
         r: 50,
         fill: 'red',
@@ -107,8 +108,24 @@ var circle1 = new svgModule('div4', null, 300, 300)
     })
     .init();
 
+//create olympic logo
+var circle2 = new svgModule('c2',null,300,300)
+    .addCircle({
+        r: 40,
+        fill: 'none',
+        stroke: 'white',
+        strokeWidth: 5,
+        quantity: 5
+    })
+    .init();
+circle2.get(0).setTop(130).setLeft(60);
+circle2.get(1).setTop(130).setLeft(150);
+circle2.get(2).setTop(130).setLeft(240);
+circle2.get(3).setTop(180).setLeft(195);
+circle2.get(4).setTop(180).setLeft(105);
+
 //create a ellipse
-var ellipse1 = new svgModule('div5', null, 300, 300)
+var ellipse1 = new svgModule('e1', null, 300, 300)
     .addEllipse({
         rx: 100,
         ry: 50,
@@ -118,8 +135,8 @@ var ellipse1 = new svgModule('div5', null, 300, 300)
     })
     .init();
 
-//
-var ellipse2 = new svgModule('div8', null, 300, 300)
+//build some ellipse
+var ellipse2 = new svgModule('e2', null, 300, 300)
     .addEllipse({
         rx: 30,
         ry: 120,
@@ -143,7 +160,7 @@ var ellipse2 = new svgModule('div8', null, 300, 300)
     .init();
 
 //create a polyline
-var polyline1 = new svgModule('div6', null, 300, 300)
+var polyline1 = new svgModule('pl1', null, 300, 300)
     .addLine({
         points: [
             { x: 0, y: 0 },
@@ -161,21 +178,15 @@ var example1 = new svgModule('ex1', null, 310, 200)
     .addPolygon({
         points: polyPoint1,
         zoom: 50,
-        style: "fill: #cccccc; stroke: black; stroke-width: 8;"
-    })
-    .addPolygon({
-        points: polyPoint1,
-        zoom: 50,
-        top: 50,
-        style: "fill: #a6a6a6; stroke: black; stroke-width: 8;"
-    })
-    .addPolygon({
-        points: polyPoint1,
-        zoom: 50,
-        top: 95,
-        style: "fill: #8c8c8c; stroke: black; stroke-width: 8;"
+        quantity: 3,
+        stroke: 'black',
+        strokeWidth: 8
     })
     .init();
+
+example1.get(0).setFill('#cccccc');
+example1.get(1).setTop(50).setFill('#a6a6a6');
+example1.get(2).setTop(95).setFill('#8c8c8c');
 
 //build a icon for power button.
 var example2 = new svgModule('ex2', null, 300, 200)
@@ -207,20 +218,14 @@ var example3 = new svgModule('ex3', null, 300, 110)
             { x: 0, y: 5 }
         ],
         top: 30,
-        left: 100,
         zoom: 10,
-        style: "fill: none; stroke: white; stroke-width: 15;"
+        style: "fill: none; stroke: white; stroke-width: 15;",
+        quantity: 2
     })
-    .addLine({
-        points: [
-            { x: 0, y: 5 },
-            { x: 0, y: 0 }
-        ],
-        top: 30,
-        left: 210,
-        zoom: 10,
-        style: "fill: none; stroke: white; stroke-width: 15;"
-    }).init();
+    .init();
+
+example3.get(0).setLeft(100);
+example3.get(1).setLeft(210);
 
 var example3_1 = new svgModule('ex3', null, 300, 110)
     .addCircle({
