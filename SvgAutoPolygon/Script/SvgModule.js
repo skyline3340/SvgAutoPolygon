@@ -213,6 +213,9 @@ class svgModule {
             // var width = parseInt(this.getObj.style['stroke-width']);
             this.getObj.setAttribute('cy', top);
         }
+        else if(tagName == "text"){
+            this.getObj.setAttribute('y', top);
+        }
 
         return this;
     }
@@ -235,6 +238,9 @@ class svgModule {
             // var r = parseInt(this.getObj.getAttribute('r') ?? this.getObj.getAttribute('rx'));
             // var width = parseInt(this.getObj.style['stroke-width']);
             this.getObj.setAttribute('cx', left);
+        }
+        else if(tagName == "text"){
+            this.getObj.setAttribute('x', left);
         }
 
         return this;
