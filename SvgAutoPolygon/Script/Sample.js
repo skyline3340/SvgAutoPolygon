@@ -213,16 +213,17 @@ var polyline2 = new svgModule('pl2', null, 300, 300)
 var example1 = new svgModule('ex1', null, 310, 200)
     .addPolygon({
         points: polyPoint1,
-        zoom: 50,
+        zoom: 30,
+        left: 65,
         quantity: 3,
         stroke: 'black',
         strokeWidth: 8
     })
     .init();
 
-example1.get(0).setFill('#cccccc');
-example1.get(1).setTop(50).setFill('#a6a6a6');
-example1.get(2).setTop(95).setFill('#8c8c8c');
+example1.get(0).setTop(50).setFill('#cccccc');
+example1.get(1).setTop(75).setFill('#a6a6a6');
+example1.get(2).setTop(100).setFill('#8c8c8c');
 
 //build a icon for power button.
 var example2 = new svgModule('ex2', null, 300, 200)
