@@ -144,7 +144,7 @@ class svgModule {
     }
 
     //opt{id?, text?, fill?, fontSize?, fontWeight?, fontFamily?, top?, left?, style?, quantity?}
-    addText(opt){
+    addText(opt) {
         opt.fill = opt.fill ?? 'none';
         opt.text = opt.text ?? '';
         opt.top = opt.top ?? 0;
@@ -173,10 +173,7 @@ class svgModule {
 
     setZoom(zoom) {
         this.getObj = this.getObj ?? this.obj[0];
-        var svgPoints = [];
-        for (var i = 0; i < this.getObj.points.length; i++) {
-            svgPoints.push({ x: this.getObj.points[i].x, y: this.getObj.points[i].y });
-        }
+        var svgPoints = this.parsePoint(this.getObj.points);
 
         var top = parseInt(this.getObj.style['stroke-width']);
         var left = parseInt(this.getObj.style['stroke-width']);
@@ -193,6 +190,59 @@ class svgModule {
 
         this.getObj.setAttribute('points', points);
         return this;
+    }
+
+    autoZoom() {
+        this.getObj = this.getObj ?? this.obj[0];
+        var svgPoints = this.parsePoint(this.getObj.points);
+
+        var top = parseInt(this.getObj.style['stroke-width']);
+        var left = parseInt(this.getObj.style['stroke-width']);
+        var xMin = svgPoints.map(p => p.x).sort(function (a, b) { return a - b })[0];
+        var yMin = svgPoints.map(p => p.y).sort(function (a, b) { return a - b })[0];
+        var xMax = svgPoints.map(p => p.x).sort(function (a, b) { return b - a })[0];
+        var yMax = svgPoints.map(p => p.y).sort(function (a, b) { return b - a })[0];
+        var width = (parseInt(this.svgObj.getAttribute('width')) - left * 2) / (xMax - xMin);
+        var height = (parseInt(this.svgObj.getAttribute('height')) - top * 2) / (yMax - yMin);
+        var zoom = (width > height) ? height : width;
+
+        var points = "";
+        for (var i = 0; i < svgPoints.length; i++) {
+            var x = (svgPoints[i].x - xMin) * zoom;
+            var y = (svgPoints[i].y - yMin) * zoom;
+            points += `${(x >= 0) ? x + left : x * -1 + left},${(y >= 0) ? y + top : y * -1 + top} `;
+        }
+
+        this.getObj.setAttribute('points', points);
+        return this;
+    }
+
+    center() {
+        this.getObj = this.getObj ?? this.obj[0];
+        var svgPoints = this.parsePoint(this.getObj.points);
+
+        var top = parseInt(this.getObj.style['stroke-width']);
+        var left = parseInt(this.getObj.style['stroke-width']);
+        var xMax = svgPoints.map(p => p.x).sort(function (a, b) { return b - a })[0];
+        var yMax = svgPoints.map(p => p.y).sort(function (a, b) { return b - a })[0];
+        var width = (parseInt(this.svgObj.getAttribute('width')) - left );
+        var height = (parseInt(this.svgObj.getAttribute('height')) - top );
+
+        top = height - yMax;
+        left = width - xMax;
+
+        this.setTop(top / 2);
+        this.setLeft(left / 2);
+
+        return this;
+    }
+
+    parsePoint(points) {
+        var svgPoints = [];
+        for (var i = 0; i < points.length; i++) {
+            svgPoints.push({ x: points[i].x, y: points[i].y });
+        }
+        return svgPoints;
     }
 
     setTop(top) {
@@ -214,7 +264,7 @@ class svgModule {
             // var width = parseInt(this.getObj.style['stroke-width']);
             this.getObj.setAttribute('cy', top);
         }
-        else if(tagName == "text"){
+        else if (tagName == "text") {
             this.getObj.setAttribute('y', top);
         }
 
@@ -240,7 +290,7 @@ class svgModule {
             // var width = parseInt(this.getObj.style['stroke-width']);
             this.getObj.setAttribute('cx', left);
         }
-        else if(tagName == "text"){
+        else if (tagName == "text") {
             this.getObj.setAttribute('x', left);
         }
 
